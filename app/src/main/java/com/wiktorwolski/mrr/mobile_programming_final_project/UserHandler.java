@@ -67,7 +67,6 @@ public class UserHandler extends SQLiteOpenHelper {
         cursor.moveToLast();
 
         int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-
         user.setId(id);
 
         cursor.close();

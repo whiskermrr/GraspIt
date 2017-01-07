@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class ChallengeAdapter extends CursorAdapter {
 
-    private int position = -1;
+    private int position = 1;
 
     public static class ChallengeViewHolder {
 
@@ -25,7 +25,6 @@ public class ChallengeAdapter extends CursorAdapter {
         Button bRemove;
 
     }
-
 
     public static final int[] challengeIcons = {
 

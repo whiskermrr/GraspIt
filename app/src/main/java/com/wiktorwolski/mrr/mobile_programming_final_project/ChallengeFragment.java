@@ -3,6 +3,8 @@ package com.wiktorwolski.mrr.mobile_programming_final_project;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
 
     ListView listOfChallenges;
     ChallengeAdapter adapter;
+    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +33,10 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
 
         SQLiteDatabase db = challengeHandler.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM challenges", null);
+        sharedPreferences = getActivity().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+
+        int id = sharedPreferences.getInt(LoginActivity.USER_ID, -1);
+        Cursor cursor = db.rawQuery("SELECT * FROM challenges WHERE owner_id = ?", new String[] {Integer.toString(id)});
 
         adapter = new ChallengeAdapter(getActivity(), cursor);
 
@@ -50,6 +56,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         adapter.selectedItem(position);
+        listOfChallenges.invalidateViews();
         adapter.notifyDataSetChanged();
     }
 }

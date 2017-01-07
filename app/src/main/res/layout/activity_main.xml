@@ -6,17 +6,18 @@
     >
 
     <FrameLayout
-        android:id="@+id/mainConntent"
+    android:id="@+id/mainConntent"
 
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        >
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    >
 
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.wiktorwolski.mrr.mobile_programming_final_project.ChallengeFragment"
-            android:id="@+id/fragment" />
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.wiktorwolski.mrr.mobile_programming_final_project.ChallengeFragment"
+        android:id="@+id/fragment" />
+
     </FrameLayout>
 
     <ListView
@@ -24,7 +25,7 @@
         android:background="#4DC9FF"
         android:layout_width="280dp"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="left|start"
         >
     </ListView>
 
