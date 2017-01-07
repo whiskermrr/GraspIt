@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class ChallengeAdapter extends CursorAdapter {
 
-    private int position = 1;
+    private int position = -1;
 
     public static class ChallengeViewHolder {
 
