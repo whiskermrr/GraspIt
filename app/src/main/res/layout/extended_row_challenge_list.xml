@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/extendedRowLayout"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ChallengeIconExtended"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        />
+
+    <TextView
+        android:id="@+id/ChallengeTitleExtended"
+        android:layout_width="270dp"
+        android:layout_height="25dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="HERE COMES THE BASS!"
+        android:layout_toRightOf="@+id/ChallengeIconExtended"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#3696E4"
+        />
+
+    <TextView
+        android:id="@+id/ChallengeDescriptionExtended"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_toRightOf="@+id/ChallengeIconExtended"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/ChallengeTitleExtended"
+        android:layout_marginTop="15dp"
+        android:text="description description description description description description description description description description description description vdescription description description description description description description"
+        android:textColor="#000000"
+        />
+
+
+    <TextView
+        android:id="@+id/ChallengeDeadlineExtended"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="28 days 6 hours 7 minutes 16 secunds"
+        android:layout_toRightOf="@+id/ChallengeIconExtended"
+        android:layout_marginLeft="25dp"
+        android:layout_below="@+id/ChallengeDescriptionExtended"
+        android:layout_marginTop="15dp"
+        android:textColor="#FD1103"
+        />
+
+    <Button
+        android:id="@+id/bFinished"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ChallengeDeadlineExtended"
+        android:layout_marginTop="10dp"
+        android:text="Finished"
+        android:background="@drawable/roundedbuttongreen"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        />
+
+    <Button
+        android:id="@+id/bRemove"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ChallengeDeadlineExtended"
+        android:layout_marginTop="10dp"
+        android:text="Remove"
+        android:background="@drawable/roundedbuttonblue"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        />
+
+</RelativeLayout>

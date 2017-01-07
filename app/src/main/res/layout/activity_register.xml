@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.wiktorwolski.mrr.mobile_programming_final_project.RegisterActivity">
+
+    <TextView
+        android:id="@+id/tPleaseRegistry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="Please Registry"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        />
+
+    <TextView
+        android:id="@+id/tFirstNameRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tPleaseRegistry"
+        android:layout_marginTop="15dp"
+        android:text="Firstname"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/etFirstNameRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tFirstNameRegistration"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:width="300dp"
+
+        />
+
+    <TextView
+        android:id="@+id/tSurNameRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etFirstNameRegistration"
+        android:layout_marginTop="10dp"
+        android:text="Surname"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/etSurNameRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tSurNameRegistration"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:width="300dp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/tEmailRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etSurNameRegistration"
+        android:layout_marginTop="10dp"
+        android:text="Email"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/etEmailRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tEmailRegistration"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:width="300dp"
+
+        />
+
+    <TextView
+        android:id="@+id/tPasswordRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etEmailRegistration"
+        android:layout_marginTop="10dp"
+        android:text="Password"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/etPasswordRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tPasswordRegistration"
+        android:inputType="textPassword"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:width="300dp"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPasswordRegistration"
+        android:layout_marginTop="35dp"
+        android:text="Register"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/roundedbuttongreen"
+        android:onClick="CreateUser"
+
+        />
+
+
+</RelativeLayout>

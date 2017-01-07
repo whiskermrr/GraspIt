@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Grasp It</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string-array name="navigation_drawer_items">
+        <item>Your Challenges</item>
+        <item>Other Challenges</item>
+        <item>Notes</item>
+        <item>Your Profile</item>
+        <item>About Us</item>
+        <item>Logout</item>
+    </string-array>
+
+</resources>

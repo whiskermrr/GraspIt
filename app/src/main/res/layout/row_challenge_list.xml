@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/normalRowLayout"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ChallengeIcon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        />
+
+    <TextView
+        android:id="@+id/ChallengeTitle"
+        android:layout_width="270dp"
+        android:layout_height="25dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="HERE COMES THE BASS!"
+        android:layout_toRightOf="@+id/ChallengeIcon"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#3696E4"
+        />
+
+
+    <TextView
+        android:id="@+id/ChallengeDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="28 days 6 hours 7 minutes 16 secunds"
+        android:layout_toRightOf="@+id/ChallengeIcon"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/ChallengeTitle"
+        android:layout_marginTop="15dp"
+        android:textColor="#FF0000"
+        />
+
+</RelativeLayout>
