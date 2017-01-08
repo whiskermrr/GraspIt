@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/myavatar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:id="@+id/imageUserAvatar"
+        />
+
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/imageUserAvatar"
+        android:layout_toRightOf="@+id/imageUserAvatar"
+        android:layout_toEndOf="@+id/imageUserAvatar"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/tUserFullName"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="Name and surname"
+        />
+
+    <TextView
+        android:id="@+id/tUserEmail"
+        android:layout_width="180dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tUserFullName"
+        android:layout_alignLeft="@+id/tUserFullName"
+        android:layout_alignStart="@+id/tUserFullName"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="email"
+        />
+
+    <TextView
+        android:id="@+id/tChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CHANGE PASSWORD: "
+        android:textSize="16sp"
+        android:layout_below="@id/imageUserAvatar"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tOldPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Old Password:"
+        android:layout_below="@+id/tChangePassword"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <EditText
+        android:id="@+id/etUserProfilelOldPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="300dp"
+        android:inputType="textPassword"
+        android:layout_below="@+id/tOldPassword"
+        />
+
+    <TextView
+        android:id="@+id/tNewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Password:"
+        android:layout_below="@+id/etUserProfilelOldPassword"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        android:id="@+id/etUserProfilelNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="300dp"
+        android:inputType="textPassword"
+        android:layout_below="@+id/tNewPassword"
+        />
+
+    <Button
+        android:id="@+id/bChangePassword"
+        android:layout_width="320dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:text="CHANGE PASSWORD"
+        android:background="@drawable/roundedbuttonblue"
+        android:layout_below="@+id/etUserProfilelNewPassword"
+        android:layout_marginTop="25dp"
+        />
+
+
+
+</RelativeLayout>

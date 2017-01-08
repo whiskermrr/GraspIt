@@ -12,11 +12,6 @@
     android:layout_height="match_parent"
     >
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.wiktorwolski.mrr.mobile_programming_final_project.ChallengeFragment"
-        android:id="@+id/fragment" />
 
     </FrameLayout>
 

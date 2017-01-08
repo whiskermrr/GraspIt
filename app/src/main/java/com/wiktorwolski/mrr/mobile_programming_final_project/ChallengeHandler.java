@@ -59,8 +59,10 @@ public class ChallengeHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        return db.rawQuery("SELECT * FROM " + TABLE_CHALLENGES + " WHERE " +
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CHALLENGES + " WHERE " +
                 COLUMN_OWNER_ID + " = ? AND " + COLUMN_STATUS + " = 0", new String[] {Integer.toString(id)});
+
+        return cursor;
     }
 
     @Override

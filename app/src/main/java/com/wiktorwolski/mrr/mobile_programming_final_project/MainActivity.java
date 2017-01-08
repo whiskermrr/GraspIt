@@ -1,5 +1,7 @@
 package com.wiktorwolski.mrr.mobile_programming_final_project;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
     private String activityTitle;
+    FragmentManager manager;
+    FragmentTransaction transaction;
 
 
     @Override
@@ -48,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        ChallengeFragment fragment = new ChallengeFragment();
+
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(R.id.mainConntent, fragment, "A").commit();
     }
 
     private void setupDrawer() {
@@ -98,7 +108,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case 5:
                 Logout();
                 break;
+
+            case 3:
+                UserProfile();
+                break;
         }
+    }
+
+    public void UserProfile() {
+
+        UserProfileFragment fragment = new UserProfileFragment();
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.mainConntent, fragment, "B");
+        transaction.commit();
     }
 
     public void Logout() {

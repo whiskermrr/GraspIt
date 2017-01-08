@@ -42,6 +42,52 @@ public class UserHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public Cursor getCursorOfLoggedUser(int id) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " +
+                COLUMN_ID + " = ?", new String[] {Integer.toString(id)});
+
+        return cursor;
+    }
+
+    public boolean changePassword(String oldPassword, String newPassword, int userID) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " +
+                COLUMN_ID + " = ?", new String[] {Integer.toString(userID)});
+
+        boolean changed = false;
+
+        if(cursor != null) {
+
+            cursor.moveToFirst();
+            String passwordStored = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PASSWORD));
+
+            if(passwordStored.matches(oldPassword)) {
+
+                cursor.close();
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_PASSWORD, newPassword);
+                db.update(TABLE_USERS, values, "id = " + Integer.toString(userID), null);
+                db.close();
+
+                changed = true;
+                return changed;
+            }
+
+            else {
+                cursor.close();
+                db.close();
+                return changed;
+            }
+        }
+
+        return changed;
+    }
+
     public int getLoggedUserId(String email) {
 
         SQLiteDatabase db = getWritableDatabase();
