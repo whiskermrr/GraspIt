@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ChallengeAdapter extends CursorAdapter {
 
+    ChallengeHandler challengeHandler;
     private int position = -1;
 
     public static class ChallengeViewHolder {
@@ -23,7 +25,7 @@ public class ChallengeAdapter extends CursorAdapter {
         TextView challengeDescription;
         Button bFinished;
         Button bRemove;
-
+        int challengeId;
     }
 
     private static final int[] challengeIcons = {
@@ -33,9 +35,10 @@ public class ChallengeAdapter extends CursorAdapter {
             R.drawable.workout_icon
     };
 
-    ChallengeAdapter(Context context, Cursor cursor) {
+    ChallengeAdapter(Context context, Cursor cursor, ChallengeHandler challengeHandler) {
 
         super(context, cursor, 0);
+        this.challengeHandler = challengeHandler;
     }
 
     public void selectedItem(int position) {
@@ -70,12 +73,22 @@ public class ChallengeAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        ChallengeViewHolder holder = (ChallengeViewHolder) view.getTag();
+        final ChallengeViewHolder holder = (ChallengeViewHolder) view.getTag();
 
         holder.challengeTitle.setText(cursor.getString(cursor.getColumnIndexOrThrow("title")));
         holder.challengeDeadline.setText(cursor.getString(cursor.getColumnIndexOrThrow("deadline")));
         holder.challengeIcon.setImageResource(challengeIcons[cursor.getInt(cursor.getColumnIndexOrThrow("icon_id"))]);
         holder.challengeDescription.setText(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+        holder.challengeId = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+
+        holder.bFinished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                challengeHandler.challengeCheckAsDone(holder.challengeId);
+                notifyDataSetChanged();
+            }
+        });
 
         if(this.position != cursor.getPosition()) {
 

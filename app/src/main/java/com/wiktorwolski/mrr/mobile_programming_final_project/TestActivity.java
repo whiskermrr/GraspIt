@@ -24,7 +24,7 @@ public class TestActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Cursor cursor = db.rawQuery("SELECT * FROM challenges", null);
 
-        ChallengeAdapter adapter = new ChallengeAdapter(this, cursor);
+        ChallengeAdapter adapter = new ChallengeAdapter(this, cursor, challengeHandler);
 
         listOfChallenges = (ListView) findViewById(R.id.listOfChallenges);
         listOfChallenges.setAdapter(adapter);

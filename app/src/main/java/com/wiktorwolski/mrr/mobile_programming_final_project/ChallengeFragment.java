@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +34,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
         int id = sharedPreferences.getInt(LoginActivity.USER_ID, -1);
 
         Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(id);
-        adapter = new ChallengeAdapter(getActivity(), cursor);
+        adapter = new ChallengeAdapter(getActivity(), cursor, challengeHandler);
 
         listOfChallenges = (ListView) getActivity().findViewById(R.id.listtt);
         listOfChallenges.setAdapter(adapter);

@@ -9,10 +9,10 @@ import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static EditText etFirstName;
-    private static EditText etSurName;
-    private static EditText etEmailRegistration;
-    private static EditText etPasswordRegistration;
+    EditText etFirstName;
+    EditText etSurName;
+    EditText etEmailRegistration;
+    EditText etPasswordRegistration;
     UserHandler userHandler;
 
     @Override

@@ -11,9 +11,9 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static UserHandler userHandler;
-    private static EditText etLoginEmail;
-    private static EditText etLoginPassword;
+    UserHandler userHandler;
+    EditText etLoginEmail;
+    EditText etLoginPassword;
     SharedPreferences sharedPreferences;
     public static final String MyPREFERENCES = "userInfo" ;
     public static final String USER_ID = "userId";

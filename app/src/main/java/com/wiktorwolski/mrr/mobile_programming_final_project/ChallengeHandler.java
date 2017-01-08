@@ -42,11 +42,18 @@ public class ChallengeHandler extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void challengeCheckAsDone(int id) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.rawQuery("UPDATE " + TABLE_CHALLENGES + " SET " + COLUMN_STATUS + " = 1" + " WHERE " + COLUMN_ID + " = ?", new String[] {Integer.toString(id)});
+    }
+
     public Cursor getCursorOfChallengesOfLoggedUser(int id) {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        return db.rawQuery("SELECT * FROM challenges WHERE owner_id = ?", new String[] {Integer.toString(id)});
+        return db.rawQuery("SELECT * FROM " + TABLE_CHALLENGES + " WHERE " + COLUMN_OWNER_ID + " = ? AND " + COLUMN_STATUS + " = 0", new String[] {Integer.toString(id)});
     }
 
     @Override
