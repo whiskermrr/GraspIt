@@ -42,6 +42,16 @@ public class UserHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public int getLoggedUserId(String email) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE email = ?", new String[] {email});
+        cursor.moveToLast();
+        int id = cursor.getInt(cursor.getColumnIndex("id"));
+
+        return id;
+    }
+
     public void addUser(User user) {
 
         SQLiteDatabase db = getWritableDatabase();

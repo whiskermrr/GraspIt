@@ -2,6 +2,7 @@ package com.wiktorwolski.mrr.mobile_programming_final_project;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -18,6 +19,7 @@ public class ChallengeHandler extends SQLiteOpenHelper {
     private static final String COLUMN_DEADLINE = "deadline";
     private static final String COLUMN_ICON_ID = "icon_id";
     private static final String COLUMN_OWNER_ID = "owner_id";
+    private static final String COLUMN_STATUS = "status";
 
 
     public ChallengeHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -29,14 +31,22 @@ public class ChallengeHandler extends SQLiteOpenHelper {
 
         String query = "CREATE TABLE " + TABLE_CHALLENGES + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                COLUMN_TITLE + " TEXT," +
-                COLUMN_DESCRIPTION + " TEXT," +
-                COLUMN_DEADLINE + " TEXT," +
-                COLUMN_ICON_ID + " INTEGER, " +
-                COLUMN_OWNER_ID + " INTEGER " +
+                COLUMN_TITLE + " TEXT NOT NULL," +
+                COLUMN_DESCRIPTION + " TEXT NOT NULL," +
+                COLUMN_DEADLINE + " TEXT NOT NULL," +
+                COLUMN_ICON_ID + " INTEGER NOT NULL, " +
+                COLUMN_OWNER_ID + " INTEGER NOT NULL, " +
+                COLUMN_STATUS + " INTEGER DEFAULT 0 " +
                 ");";
 
         db.execSQL(query);
+    }
+
+    public Cursor getCursorOfChallengesOfLoggedUser(int id) {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        return db.rawQuery("SELECT * FROM challenges WHERE owner_id = ?", new String[] {Integer.toString(id)});
     }
 
     @Override

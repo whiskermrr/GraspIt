@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class ChallengeAdapter extends CursorAdapter {
 
-    private int position = 1;
+    private int position = -1;
 
     public static class ChallengeViewHolder {
 
@@ -26,49 +26,41 @@ public class ChallengeAdapter extends CursorAdapter {
 
     }
 
-    public static final int[] challengeIcons = {
+    private static final int[] challengeIcons = {
 
             R.drawable.brain_icon,
             R.drawable.book_icon,
             R.drawable.workout_icon
     };
 
-    public ChallengeAdapter(Context context, Cursor cursor) {
+    ChallengeAdapter(Context context, Cursor cursor) {
 
         super(context, cursor, 0);
     }
 
     public void selectedItem(int position) {
 
-        this.position = position;
+        if(this.position == position)
+            this.position = -1;
+
+        else
+            this.position = position;
+
+        notifyDataSetChanged();
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
-
         ChallengeViewHolder holder = new ChallengeViewHolder();
 
-        if(this.position == cursor.getPosition()) {
-
-            View view2 = LayoutInflater.from(context).inflate(R.layout.extended_row_challenge_list, parent, false);
-            holder.challengeIcon = (ImageView) view2.findViewById(R.id.ChallengeIconExtended);
-            holder.challengeTitle = (TextView) view2.findViewById(R.id.ChallengeTitleExtended);
-            holder.challengeDeadline = (TextView) view2.findViewById(R.id.ChallengeDeadlineExtended);
-            holder.challengeDescription = (TextView) view2.findViewById(R.id.ChallengeDescriptionExtended);
-            holder.bFinished = (Button) view2.findViewById(R.id.bFinished);
-            holder.bRemove = (Button) view2.findViewById(R.id.bRemove);
-
-            view2.setTag(holder);
-
-            return view2;
-        }
-
-
-        View view = LayoutInflater.from(context).inflate(R.layout.row_challenge_list, parent, false);
-        holder.challengeIcon = (ImageView) view.findViewById(R.id.ChallengeIcon);
-        holder.challengeTitle = (TextView) view.findViewById(R.id.ChallengeTitle);
-        holder.challengeDeadline = (TextView) view.findViewById(R.id.ChallengeDeadline);
+        View view = LayoutInflater.from(context).inflate(R.layout.extended_row_challenge_list, parent, false);
+        holder.challengeIcon = (ImageView) view.findViewById(R.id.ChallengeIconExtended);
+        holder.challengeTitle = (TextView) view.findViewById(R.id.ChallengeTitleExtended);
+        holder.challengeDeadline = (TextView) view.findViewById(R.id.ChallengeDeadlineExtended);
+        holder.challengeDescription = (TextView) view.findViewById(R.id.ChallengeDescriptionExtended);
+        holder.bFinished = (Button) view.findViewById(R.id.bFinished);
+        holder.bRemove = (Button) view.findViewById(R.id.bRemove);
 
         view.setTag(holder);
 
@@ -83,5 +75,20 @@ public class ChallengeAdapter extends CursorAdapter {
         holder.challengeTitle.setText(cursor.getString(cursor.getColumnIndexOrThrow("title")));
         holder.challengeDeadline.setText(cursor.getString(cursor.getColumnIndexOrThrow("deadline")));
         holder.challengeIcon.setImageResource(challengeIcons[cursor.getInt(cursor.getColumnIndexOrThrow("icon_id"))]);
+        holder.challengeDescription.setText(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+
+        if(this.position != cursor.getPosition()) {
+
+            holder.challengeDescription.setVisibility(view.GONE);
+            holder.bFinished.setVisibility(view.GONE);
+            holder.bRemove.setVisibility(view.GONE);
+        }
+
+        else {
+
+            holder.challengeDescription.setVisibility(view.VISIBLE);
+            holder.bFinished.setVisibility(view.VISIBLE);
+            holder.bRemove.setVisibility(view.VISIBLE);
+        }
     }
 }

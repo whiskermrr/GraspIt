@@ -23,19 +23,19 @@ public class Challenge {
         this.done = false;
     }
 
-    public Challenge(String title, String description, int iconId, String deadline, int idOfUser, boolean done) {
+    public Challenge(String title, String description, int iconId, String deadline, int idOfUser) {
 
         this.title = title;
         this.description = description;
         this.iconId = iconId;
         this.idOfUser = idOfUser;
-        this.done = done;
+        this.done = false;
         this.deadline = deadline;
     }
 
 
 
-    public boolean isDone() {
+    public boolean getDone() {
         return done;
     }
 

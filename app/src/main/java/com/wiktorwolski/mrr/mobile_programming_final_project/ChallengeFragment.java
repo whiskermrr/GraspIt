@@ -31,20 +31,15 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
 
         ChallengeHandler challengeHandler = new ChallengeHandler(getActivity(), null, null, 1);
 
-        SQLiteDatabase db = challengeHandler.getWritableDatabase();
-
         sharedPreferences = getActivity().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-
         int id = sharedPreferences.getInt(LoginActivity.USER_ID, -1);
-        Cursor cursor = db.rawQuery("SELECT * FROM challenges WHERE owner_id = ?", new String[] {Integer.toString(id)});
 
+        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(id);
         adapter = new ChallengeAdapter(getActivity(), cursor);
 
         listOfChallenges = (ListView) getActivity().findViewById(R.id.listtt);
         listOfChallenges.setAdapter(adapter);
         listOfChallenges.setOnItemClickListener(this);
-
-        db.close();
     }
 
     @Override
@@ -56,7 +51,5 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         adapter.selectedItem(position);
-        listOfChallenges.invalidateViews();
-        adapter.notifyDataSetChanged();
     }
 }

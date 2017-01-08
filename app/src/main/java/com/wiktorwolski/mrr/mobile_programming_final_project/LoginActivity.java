@@ -3,8 +3,6 @@ package com.wiktorwolski.mrr.mobile_programming_final_project;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,17 +47,12 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Logged In!", Toast.LENGTH_SHORT).show();
 
-            SQLiteDatabase db = userHandler.getWritableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM users WHERE email = ?", new String[] {etLoginEmail.getText().toString()});
-            cursor.moveToLast();
-            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int id = userHandler.getLoggedUserId(etLoginEmail.getText().toString());
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(USER_ID, id);
             editor.putBoolean(LOGGED, true);
-            editor.commit();
-
-            db.close();
+            editor.apply();
 
             etLoginEmail.setText("");
             etLoginPassword.setText("");
