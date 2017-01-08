@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
 
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);

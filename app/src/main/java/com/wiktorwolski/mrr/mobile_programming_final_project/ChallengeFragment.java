@@ -18,6 +18,8 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     ListView listOfChallenges;
     ChallengeAdapter adapter;
     SharedPreferences sharedPreferences;
+    ChallengeHandler challengeHandler;
+    private int userID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,13 +30,13 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ChallengeHandler challengeHandler = new ChallengeHandler(getActivity(), null, null, 1);
+        challengeHandler = new ChallengeHandler(getActivity(), null, null, 1);
 
         sharedPreferences = getActivity().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt(LoginActivity.USER_ID, -1);
+        userID = sharedPreferences.getInt(LoginActivity.USER_ID, -1);
 
-        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(id);
-        adapter = new ChallengeAdapter(getActivity(), cursor, challengeHandler);
+        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID);
+        adapter = new ChallengeAdapter(getActivity(), cursor, ChallengeFragment.this);
 
         listOfChallenges = (ListView) getActivity().findViewById(R.id.listtt);
         listOfChallenges.setAdapter(adapter);
@@ -50,5 +52,21 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         adapter.selectedItem(position);
+    }
+
+    public void challengeCheckAsDone(int id) {
+
+        adapter.getCursor().close();
+        challengeHandler.challengeCheckAsDone(id);
+        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID);
+        adapter.swapCursor(cursor);
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 }

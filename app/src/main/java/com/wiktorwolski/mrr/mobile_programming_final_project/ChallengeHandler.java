@@ -46,14 +46,21 @@ public class ChallengeHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        db.rawQuery("UPDATE " + TABLE_CHALLENGES + " SET " + COLUMN_STATUS + " = 1" + " WHERE " + COLUMN_ID + " = ?", new String[] {Integer.toString(id)});
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_STATUS, 1);
+
+        db.update(TABLE_CHALLENGES, values, "_id = " + Integer.toString(id), null);
+
+        db.close();
     }
 
     public Cursor getCursorOfChallengesOfLoggedUser(int id) {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        return db.rawQuery("SELECT * FROM " + TABLE_CHALLENGES + " WHERE " + COLUMN_OWNER_ID + " = ? AND " + COLUMN_STATUS + " = 0", new String[] {Integer.toString(id)});
+        return db.rawQuery("SELECT * FROM " + TABLE_CHALLENGES + " WHERE " +
+                COLUMN_OWNER_ID + " = ? AND " + COLUMN_STATUS + " = 0", new String[] {Integer.toString(id)});
     }
 
     @Override

@@ -9,13 +9,12 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class ChallengeAdapter extends CursorAdapter {
 
-    ChallengeHandler challengeHandler;
     private int position = -1;
+    ChallengeFragment parentFragment;
 
     public static class ChallengeViewHolder {
 
@@ -26,6 +25,7 @@ public class ChallengeAdapter extends CursorAdapter {
         Button bFinished;
         Button bRemove;
         int challengeId;
+        int status;
     }
 
     private static final int[] challengeIcons = {
@@ -35,10 +35,10 @@ public class ChallengeAdapter extends CursorAdapter {
             R.drawable.workout_icon
     };
 
-    ChallengeAdapter(Context context, Cursor cursor, ChallengeHandler challengeHandler) {
+    ChallengeAdapter(Context context, Cursor cursor, ChallengeFragment parentFragment) {
 
         super(context, cursor, 0);
-        this.challengeHandler = challengeHandler;
+        this.parentFragment = parentFragment;
     }
 
     public void selectedItem(int position) {
@@ -71,7 +71,7 @@ public class ChallengeAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, final Cursor cursor) {
 
         final ChallengeViewHolder holder = (ChallengeViewHolder) view.getTag();
 
@@ -80,12 +80,13 @@ public class ChallengeAdapter extends CursorAdapter {
         holder.challengeIcon.setImageResource(challengeIcons[cursor.getInt(cursor.getColumnIndexOrThrow("icon_id"))]);
         holder.challengeDescription.setText(cursor.getString(cursor.getColumnIndexOrThrow("description")));
         holder.challengeId = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        holder.status = cursor.getInt(cursor.getColumnIndexOrThrow("status"));
 
         holder.bFinished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                challengeHandler.challengeCheckAsDone(holder.challengeId);
+                parentFragment.challengeCheckAsDone(holder.challengeId);
                 notifyDataSetChanged();
             }
         });
