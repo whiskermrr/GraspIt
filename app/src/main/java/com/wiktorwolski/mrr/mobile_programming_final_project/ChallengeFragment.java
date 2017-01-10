@@ -38,7 +38,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
         Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID);
         adapter = new ChallengeAdapter(getActivity(), cursor, ChallengeFragment.this);
 
-        listOfChallenges = (ListView) getActivity().findViewById(R.id.listtt);
+        listOfChallenges = (ListView) getActivity().findViewById(R.id.listOfChallenges);
         listOfChallenges.setAdapter(adapter);
         listOfChallenges.setOnItemClickListener(this);
     }
@@ -53,6 +53,16 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
 
         adapter.selectedItem(position);
     }
+
+    public void refreshDataInList() {
+
+        adapter.getCursor().close();
+        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID);
+        adapter.swapCursor(cursor);
+        adapter.notifyDataSetChanged();
+    }
+
+
 
     public void challengeCheckAsDone(int id) {
 
