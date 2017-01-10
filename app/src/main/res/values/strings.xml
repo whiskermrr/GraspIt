@@ -9,8 +9,8 @@
 
     <string-array name="navigation_drawer_items">
         <item>Your Challenges</item>
-        <item>Other Challenges</item>
-        <item>Notes</item>
+        <item>Done Challenges</item>
+        <item>Add Challenge</item>
         <item>Your Profile</item>
         <item>About Us</item>
         <item>Logout</item>

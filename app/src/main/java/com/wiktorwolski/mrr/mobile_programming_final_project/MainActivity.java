@@ -1,10 +1,8 @@
 package com.wiktorwolski.mrr.mobile_programming_final_project;
 
-import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PersistableBundle;
@@ -13,14 +11,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -60,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getSupportActionBar().setHomeButtonEnabled(true);
 
         ChallengeFragment fragment = new ChallengeFragment();
+        fragment.setStatus(0);
 
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
@@ -116,19 +112,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
+            case 1:
+                DoneChallengeList();
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
+
             case 5:
                 Logout();
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
-            case 4:
-                Add();
-                drawerLayout.closeDrawer(Gravity.LEFT);
-                break;
-
             case 2:
                 drawerLayout.closeDrawer(Gravity.LEFT);
-                startDialogTest();
+                startAddChallengeFragment();
                 break;
 
             case 3:
@@ -143,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         UserProfileFragment fragment = new UserProfileFragment();
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.mainConntent, fragment, "B");
+        transaction.replace(R.id.mainConntent, fragment, "C");
         transaction.commit();
     }
 
@@ -161,53 +157,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void ChallengeList() {
 
         ChallengeFragment fragment = new ChallengeFragment();
+        fragment.setStatus(0);
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.mainConntent, fragment, "C");
+        transaction.replace(R.id.mainConntent, fragment, "A");
         transaction.commit();
     }
 
-    public void startDialogTest() {
+    public void startAddChallengeFragment() {
 
         manager = getFragmentManager();
         AddChallengeFragment fragment = new AddChallengeFragment();
         fragment.show(manager, "MyDialog");
     }
 
-    public  void Add(){
-        LayoutInflater factory = LayoutInflater.from(this);
-        final View textEntryView = factory.inflate(R.layout.add_challenge_fragment, null);
-        final EditText input1 = (EditText) textEntryView.findViewById(R.id.tTitle);
-        final EditText input2 = (EditText) textEntryView.findViewById(R.id.tDescription);
-        final EditText input3 = (EditText) textEntryView.findViewById(R.id.tDeadLine);
-        input1.setText("", TextView.BufferType.EDITABLE);
-        input2.setText("", TextView.BufferType.EDITABLE);
-        input3.setText("", TextView.BufferType.EDITABLE);
-        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("New Challenge").setView(textEntryView).setPositiveButton("Save",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int whichButton) {
+    public void DoneChallengeList() {
 
-                        ChallengeHandler challengeHandler = new ChallengeHandler(MainActivity.this, null, null, 1);
-                        Challenge challenge = new Challenge();
-                        challenge.setIdOfUser(userID);
-                        challenge.setTitle(input1.getText().toString());
-                        challenge.setDescription(input2.getText().toString());
-                        challenge.setDeadline(input3.getText().toString());
-                        challenge.setIconId(0);
-                        challenge.setDone(false);
-                        challengeHandler.addChallenge(challenge);
-                        finish();
-                        startActivity(getIntent());
+        ChallengeFragment fragment = new ChallengeFragment();
+        fragment.setStatus(1);
 
-                    }
-                }).setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int whichButton) {
-                    }
-                });
-        alert.show();
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.mainConntent, fragment, "B");
+        transaction.commit();
     }
 }

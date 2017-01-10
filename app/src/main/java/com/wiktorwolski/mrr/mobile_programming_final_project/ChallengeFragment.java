@@ -20,6 +20,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     SharedPreferences sharedPreferences;
     ChallengeHandler challengeHandler;
     private int userID;
+    private int status;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
         sharedPreferences = getActivity().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         userID = sharedPreferences.getInt(LoginActivity.USER_ID, -1);
 
-        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID);
+        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID, status);
         adapter = new ChallengeAdapter(getActivity(), cursor, ChallengeFragment.this);
 
         listOfChallenges = (ListView) getActivity().findViewById(R.id.listOfChallenges);
@@ -57,7 +58,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     public void refreshDataInList() {
 
         adapter.getCursor().close();
-        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID);
+        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID, status);
         adapter.swapCursor(cursor);
         adapter.notifyDataSetChanged();
     }
@@ -68,8 +69,17 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
 
         adapter.getCursor().close();
         challengeHandler.challengeCheckAsDone(id);
-        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID);
+        Cursor cursor = challengeHandler.getCursorOfChallengesOfLoggedUser(userID, status);
+        adapter.resetPosition();
         adapter.swapCursor(cursor);
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getUserID() {

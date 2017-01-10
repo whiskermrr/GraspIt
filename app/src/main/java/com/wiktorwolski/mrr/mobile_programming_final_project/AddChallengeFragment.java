@@ -1,5 +1,6 @@
 package com.wiktorwolski.mrr.mobile_programming_final_project;
 
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,21 +9,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class AddChallengeFragment extends DialogFragment implements View.OnClickListener {
 
     ImageView iBrain;
     ImageView iBook;
-    ImageView iWorkuout;
+    ImageView iWorkout;
     EditText tTitle;
     EditText tDescription;
     EditText tDeadline;
     Button bAdd;
     SharedPreferences sharedPreferences;
+    Calendar myCalendar = Calendar.getInstance();
     int userID;
     boolean clicked;
     int choice;
@@ -42,20 +49,31 @@ public class AddChallengeFragment extends DialogFragment implements View.OnClick
         tDescription = (EditText) view.findViewById(R.id.tDescription);
         tDeadline = (EditText) view.findViewById(R.id.tDeadLine);
 
+        tDeadline.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
         iBrain = (ImageView) view.findViewById(R.id.iBrain);
         iBook = (ImageView) view.findViewById(R.id.iBook);
-        iWorkuout = (ImageView) view.findViewById(R.id.iWorkout);
+        iWorkout = (ImageView) view.findViewById(R.id.iWorkout);
 
         bAdd = (Button) view.findViewById(R.id.bAdd);
         bAdd.setOnClickListener(this);
 
         iBook.setClickable(true);
         iBrain.setClickable(true);
-        iWorkuout.setClickable(true);
+        iWorkout.setClickable(true);
 
         iBrain.setOnClickListener(this);
         iBook.setOnClickListener(this);
-        iWorkuout.setOnClickListener(this);
+        iWorkout.setOnClickListener(this);
 
         return view;
     }
@@ -75,7 +93,7 @@ public class AddChallengeFragment extends DialogFragment implements View.OnClick
                 break;
 
             case 2:
-                image = iWorkuout;
+                image = iWorkout;
                 break;
 
             default:
@@ -156,6 +174,26 @@ public class AddChallengeFragment extends DialogFragment implements View.OnClick
         ChallengeHandler challengeHandler = new ChallengeHandler(getActivity(), null, null, 1);
         challengeHandler.addChallenge(challenge);
         dismiss();
+    }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+    };
+
+    private void updateLabel() {
+
+        String myFormat = "dd/MM/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMANY);
+
+        tDeadline.setText(sdf.format(myCalendar.getTime()));
     }
 }
 

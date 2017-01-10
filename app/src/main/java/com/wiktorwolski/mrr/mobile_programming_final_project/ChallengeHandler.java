@@ -55,12 +55,12 @@ public class ChallengeHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Cursor getCursorOfChallengesOfLoggedUser(int id) {
+    public Cursor getCursorOfChallengesOfLoggedUser(int id, int status) {
 
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CHALLENGES + " WHERE " +
-                COLUMN_OWNER_ID + " = ? AND " + COLUMN_STATUS + " = 0", new String[] {Integer.toString(id)});
+                COLUMN_OWNER_ID + " = ? AND " + COLUMN_STATUS + " = ?", new String[] {Integer.toString(id), Integer.toString(status)});
 
         return cursor;
     }
