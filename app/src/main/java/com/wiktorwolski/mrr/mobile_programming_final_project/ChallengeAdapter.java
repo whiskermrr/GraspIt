@@ -24,7 +24,6 @@ public class ChallengeAdapter extends CursorAdapter {
         TextView challengeDeadline;
         TextView challengeDescription;
         Button bFinished;
-        Button bRemove;
         int challengeId;
     }
 
@@ -44,11 +43,15 @@ public class ChallengeAdapter extends CursorAdapter {
 
     public void selectedItem(int position) {
 
-        if(this.position == position)
-            this.position = -1;
+        if(this.position == position) {
 
-        else
+            this.position = -1;
+        }
+
+        else {
+
             this.position = position;
+        }
 
         notifyDataSetChanged();
     }
@@ -58,13 +61,12 @@ public class ChallengeAdapter extends CursorAdapter {
 
         ChallengeViewHolder holder = new ChallengeViewHolder();
 
-            View view = LayoutInflater.from(context).inflate(R.layout.extended_row_challenge_list, parent, false);
-            holder.challengeIcon = (ImageView) view.findViewById(R.id.ChallengeIconExtended);
-            holder.challengeTitle = (TextView) view.findViewById(R.id.ChallengeTitleExtended);
-            holder.challengeDeadline = (TextView) view.findViewById(R.id.ChallengeDeadlineExtended);
-            holder.challengeDescription = (TextView) view.findViewById(R.id.ChallengeDescriptionExtended);
-            holder.bFinished = (Button) view.findViewById(R.id.bFinished);
-            holder.bRemove = (Button) view.findViewById(R.id.bRemove);
+        View view = LayoutInflater.from(context).inflate(R.layout.extended_row_challenge_list, parent, false);
+        holder.challengeIcon = (ImageView) view.findViewById(R.id.ChallengeIconExtended);
+        holder.challengeTitle = (TextView) view.findViewById(R.id.ChallengeTitleExtended);
+        holder.challengeDeadline = (TextView) view.findViewById(R.id.ChallengeDeadlineExtended);
+        holder.challengeDescription = (TextView) view.findViewById(R.id.ChallengeDescriptionExtended);
+        holder.bFinished = (Button) view.findViewById(R.id.bFinished);
 
         view.setTag(holder);
 
@@ -95,14 +97,12 @@ public class ChallengeAdapter extends CursorAdapter {
 
             holder.challengeDescription.setVisibility(view.GONE);
             holder.bFinished.setVisibility(view.GONE);
-            holder.bRemove.setVisibility(view.GONE);
         }
 
         else if(status == 0){
 
             holder.challengeDescription.setVisibility(view.VISIBLE);
             holder.bFinished.setVisibility(view.VISIBLE);
-            holder.bRemove.setVisibility(view.VISIBLE);
         }
 
         else if(status == 1) {

@@ -155,12 +155,12 @@ public class UserHandler extends SQLiteOpenHelper {
         return passwordMatches;
     }
 
-    public void addImage(byte[] image) {
+    public void addImage(byte[] image, int id) {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_IMAGE, image);
-        db.insert(TABLE_USERS, null, values);
+        db.update(TABLE_USERS, values, "id = " + Integer.toString(id), null);
         db.close();
     }
 
@@ -171,7 +171,7 @@ public class UserHandler extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
 
-        byte[] image = cursor.getBlob(1);
+        byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow(COLUMN_IMAGE));
 
         return image;
     }

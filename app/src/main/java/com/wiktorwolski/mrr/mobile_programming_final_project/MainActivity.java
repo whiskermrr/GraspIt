@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     SharedPreferences sharedPreferences;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
-    private String activityTitle;
     FragmentManager manager;
     FragmentTransaction transaction;
 
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         System.out.println(userID);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        activityTitle = getTitle().toString();
 
         items = getResources().getStringArray(R.array.navigation_drawer_items);
 
@@ -70,14 +68,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onDrawerOpened(View drawerView) {
 
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation");
                 invalidateOptionsMenu();
             }
 
             public void onDrawerClosed(View view) {
 
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(activityTitle);
                 invalidateOptionsMenu();
             }
         };
@@ -108,11 +104,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch(position) {
 
             case 0:
+                getSupportActionBar().setTitle("Pending Challenges");
                 ChallengeList();
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case 1:
+                getSupportActionBar().setTitle("Done Challenges");
                 DoneChallengeList();
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
@@ -128,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
 
             case 3:
+                getSupportActionBar().setTitle("Your Profile");
                 UserProfile();
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 break;

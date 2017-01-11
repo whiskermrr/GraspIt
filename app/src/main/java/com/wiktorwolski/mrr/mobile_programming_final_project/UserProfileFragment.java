@@ -6,12 +6,15 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.Manifest.*;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -34,7 +38,6 @@ public class UserProfileFragment extends Fragment implements FragmentManager.OnB
     Button bChangePassword;
     UserHandler userHandler;
     SharedPreferences sharedPreferences;
-    DbBitmapUtility dbBitmapUtility;
     private int userID;
 
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -64,9 +67,9 @@ public class UserProfileFragment extends Fragment implements FragmentManager.OnB
         sharedPreferences = getActivity().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         userID = sharedPreferences.getInt(LoginActivity.USER_ID, -1);
 
-        dbBitmapUtility = new DbBitmapUtility();
-
         Cursor cursor = userHandler.getCursorOfLoggedUser(userID);
+
+        getPermissionToExternalStorage();
 
         if(cursor != null) {
 
@@ -111,6 +114,23 @@ public class UserProfileFragment extends Fragment implements FragmentManager.OnB
         }
     }
 
+    public void getPermissionToExternalStorage() {
+
+        if(Build.VERSION.SDK_INT >= 23) {
+
+            if(ContextCompat.checkSelfPermission(getActivity(), permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(getActivity(), new String[]{permission.READ_EXTERNAL_STORAGE}, 1);
+                System.out.println("ASKED");
+            }
+
+            else {
+
+                System.out.println("GRANTED WITHOUT");
+            }
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -120,7 +140,19 @@ public class UserProfileFragment extends Fragment implements FragmentManager.OnB
             imageUserAvatar.setImageURI(selectedImage);
             addImageToDatabase();
         }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        switch(requestCode) {
+
+            case 1:
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(getActivity(), "PERMISSION GRANTED", Toast.LENGTH_SHORT).show();
+                }
+        }
     }
 
     @Override
@@ -128,48 +160,23 @@ public class UserProfileFragment extends Fragment implements FragmentManager.OnB
 
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-
     public void addImageToDatabase() {
 
-        Bitmap image = ((BitmapDrawable) imageUserAvatar.getDrawable()).getBitmap();
+        imageUserAvatar.buildDrawingCache();
+        Bitmap image = imageUserAvatar.getDrawingCache();
 
-        byte[] imageByte = dbBitmapUtility.getBytes(image);
-        userHandler.addImage(imageByte);
-    }
-
-    public boolean isBitArrayEmpty(byte[] array) {
-
-        for(byte b: array) {
-
-            if(b != 0) {
-                return false;
-            }
-        }
-
-        return true;
+        byte[] imageByte = DbBitmapUtility.getBytes(image);
+        userHandler.addImage(imageByte, userID);
     }
 
     public void setUserAvatarUsingImageInDatabase() {
 
         byte[] imageByte = userHandler.getUserImage(userID);
 
-        if(!isBitArrayEmpty(imageByte)) {
+        if(imageByte != null) {
 
-            Bitmap image = dbBitmapUtility.getImage(imageByte);
+            Bitmap image = DbBitmapUtility.getImage(imageByte);
             imageUserAvatar.setImageBitmap(image);
-        }
-
-        else {
-
-            imageUserAvatar.setImageResource(R.drawable.myavatar);
         }
     }
 

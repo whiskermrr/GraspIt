@@ -81,12 +81,4 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
     public void setStatus(int status) {
         this.status = status;
     }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 }
