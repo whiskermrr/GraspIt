@@ -16,6 +16,7 @@ public class UserHandler extends SQLiteOpenHelper {
     private static final String COLUMN_LASTNAME = "lastname";
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_PASSWORD = "password";
+    private static final String COLUMN_IMAGE = "image";
 
     public UserHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -26,10 +27,11 @@ public class UserHandler extends SQLiteOpenHelper {
 
         String query = "CREATE TABLE " + TABLE_USERS + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                COLUMN_FIRSTNAME + " TEXT," +
-                COLUMN_LASTNAME + " TEXT," +
-                COLUMN_EMAIL + " TEXT," +
-                COLUMN_PASSWORD + " TEXT " +
+                COLUMN_FIRSTNAME + " TEXT NOT NULL," +
+                COLUMN_LASTNAME + " TEXT NOT NULL," +
+                COLUMN_EMAIL + " TEXT NOT NULL," +
+                COLUMN_PASSWORD + " TEXT NOT NULL, " +
+                COLUMN_IMAGE + " BLOB " +
                 ");";
 
         db.execSQL(query);
@@ -151,5 +153,26 @@ public class UserHandler extends SQLiteOpenHelper {
         db.close();
 
         return passwordMatches;
+    }
+
+    public void addImage(byte[] image) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_IMAGE, image);
+        db.insert(TABLE_USERS, null, values);
+        db.close();
+    }
+
+    public byte[] getUserImage(int userId) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE " + COLUMN_ID + " = ?", new String[] {Integer.toString(userId)});
+
+        cursor.moveToFirst();
+
+        byte[] image = cursor.getBlob(1);
+
+        return image;
     }
 }
