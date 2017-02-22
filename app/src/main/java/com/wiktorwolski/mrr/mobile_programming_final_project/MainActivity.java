@@ -120,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
+            case 4:
+                getSupportActionBar().setTitle("About Us");
+                AboutUs();
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
+
             case 2:
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 startAddChallengeFragment();
@@ -178,6 +184,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
         transaction.replace(R.id.mainConntent, fragment, "B");
+        transaction.commit();
+    }
+
+    public void AboutUs() {
+
+        AboutUsFragment fragment = new AboutUsFragment();
+
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.mainConntent, fragment, "D");
         transaction.commit();
     }
 }

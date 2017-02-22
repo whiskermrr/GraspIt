@@ -32,6 +32,7 @@ public class ChallengeFragment extends Fragment implements FragmentManager.OnBac
         super.onActivityCreated(savedInstanceState);
 
         challengeHandler = new ChallengeHandler(getActivity(), null, null, 1);
+        //challengeHandler.onUpgrade(challengeHandler.getWritableDatabase(), 1, 1);
 
         sharedPreferences = getActivity().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         userID = sharedPreferences.getInt(LoginActivity.USER_ID, -1);

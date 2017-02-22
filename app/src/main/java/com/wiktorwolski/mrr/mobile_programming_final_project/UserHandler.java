@@ -175,4 +175,19 @@ public class UserHandler extends SQLiteOpenHelper {
 
         return image;
     }
+
+    public boolean checkIfUserExists(String email) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_EMAIL + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[] {email});
+
+        if(cursor != null) {
+
+            return true;
+        }
+
+        return false;
+    }
 }

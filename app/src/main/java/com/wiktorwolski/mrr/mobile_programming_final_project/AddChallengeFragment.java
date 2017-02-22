@@ -117,6 +117,7 @@ public class AddChallengeFragment extends DialogFragment implements View.OnClick
 
             addChallenge(v);
             ChallengeFragment listFragment = (ChallengeFragment) getFragmentManager().findFragmentByTag("A");
+
             listFragment.refreshDataInList();
             return;
         }

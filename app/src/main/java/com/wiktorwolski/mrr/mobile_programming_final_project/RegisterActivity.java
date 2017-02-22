@@ -41,6 +41,12 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        if(!userHandler.checkIfUserExists(userEmail)) {
+
+            Toast.makeText(RegisterActivity.this, "User email already exists", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         User user = new User(userFirstName, userSurName, userEmail, userPassword);
         userHandler.addUser(user);
 
